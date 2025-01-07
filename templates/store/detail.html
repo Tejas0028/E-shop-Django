@@ -1,0 +1,221 @@
+{% extends 'base.html'%}
+
+
+    {% block style %}
+   
+        /* Base Styles */
+        body {
+            background-color: #121212;
+            color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* Product Detail Section */
+        .container {
+            padding: 50px 0;
+        }
+
+        /* Product Container */
+        .product-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        /* Product Image */
+        .product-image {
+            flex: 0 0 40%;
+            max-width: 100%;
+            background-color: #1F1F1F;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+        }
+
+        .product-image img {
+            width: 100%;
+            max-height: 400px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        /* Product Information */
+        .product-info {
+            flex: 1;
+            background-color: #1E1E1E;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-title {
+            font-size: 32px;
+            font-weight: bold;
+            color: #FF5722;
+        }
+
+        .product-price {
+            font-size: 28px;
+            margin-top: 15px;
+            color: #7ae852;
+        }
+
+        .product-description {
+            margin-top: 20px;
+            font-size: 16px;
+            color: #CCCCCC;
+        }
+
+        .product-quantity {
+            margin-top: 15px;
+        }
+
+        .quantity-input {
+            width: 60px;
+            padding: 5px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #fff;
+        }
+
+        .add-to-cart {
+            margin-top: 20px;
+            padding: 12px 25px;
+            font-size: 18px;
+            font-weight: bold;
+            background-color: #FF5722;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart:hover {
+            background-color: #E64A19;
+            cursor: pointer;
+        }
+
+        /* Rating Section */
+        .reviews {
+            margin-top: 50px;
+            background-color: #1F1F1F;
+            border-radius: 8px;
+            padding: 25px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #FF5722;
+        }
+
+        .review {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #FFFFFF;
+        }
+
+        .review-text {
+            font-size: 16px;
+        }
+
+        .review-rating {
+            font-size: 18px;
+            color: #FFD700;
+            margin-top: 5px;
+        }
+
+        .write-review {
+            margin-top: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            background-color: #7ae852;
+            color: #1E1E1E;
+            border-radius: 5px;
+            padding: 8px 16px;
+            border: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .write-review:hover {
+            background-color: #6cc42c;
+            cursor: pointer;
+        }
+
+        @media (max-width: 768px) {
+            .product-container {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-image,
+            .product-info {
+                max-width: 100%;
+                text-align: center;
+            }
+
+            .add-to-cart {
+                width: auto;
+                padding: 12px 20px;
+            }
+        }
+
+    {% endblock %}
+</head>
+
+{% block body %}
+
+    <div class="container product-detail">
+        <div class="product-container">
+            <!-- Product Image Section (Left Side) -->
+            <div class="product-image">
+                <img src="{{single_product.images.url}}" alt="Product Image" class="img-fluid">
+            </div>
+
+            <!-- Product Details Section (Right Side) -->
+            <div class="product-info">
+                <h1 class="product-title">{{ single_product.product_name }}</h1>
+                <p class="product-price">$ {{ single_product.price }}</p>
+                <p class="product-description">{{ single_product.description }}</p>
+                
+                <div class="product-quantity">
+                    <label for="quantity" class="form-label">Quantity:</label>
+                    <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+                </div>
+
+                {% if single_product.stock > 0 %}
+                <button class="add-to-cart">Add to Cart</button>
+                {% else %}
+                <div class="d-grid gap-2 mt-3">
+                <button class="btn btn-success btn-lg disabled" aria-disabled="true" title="This item is currently out of stock.">Out of stock </button>
+                </div>
+                {% endif %}
+
+            </div>
+        </div>
+
+        <!-- Product Ratings Section (Below Product Info and Image) -->
+        <div class="reviews">
+            <h2 class="section-title">Customer Reviews</h2>
+            <div class="review">
+                <p class="review-text">"This is a great product! Highly recommend." - Jane Doe</p>
+                <div class="review-rating">⭐⭐⭐⭐⭐</div>
+            </div>
+            <div class="review">
+                <p class="review-text">"Good quality, but took longer to ship than expected." - John Smith</p>
+                <div class="review-rating">⭐⭐⭐⭐</div>
+            </div>
+
+            <button class="write-review">Write a Review</button>
+        </div>
+
+    </div>
+
+    {% endblock %}
+

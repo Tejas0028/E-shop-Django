@@ -1,0 +1,375 @@
+/* Base Styles */
+body {
+    background-color: #121212;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+}
+
+/* Header */
+header {
+    background-color: #1E1E1E;
+    border-bottom: 1px solid #333333;
+}
+
+header a {
+    color: #FFFFFF;
+    text-decoration: none;
+}
+
+header a:hover {
+    color: #7ae852;
+}
+
+
+.badge {
+    font-size: 0.75rem;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+}
+
+button {
+    background-color: #FF5722;
+    color: #FFFFFF;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+button:hover {
+    background-color: #d849ff;
+}
+
+/* Sidebar */
+.sidebar {
+    background-color: #1F1F1F;
+    border: none;
+    border-radius: 12px;
+    padding: 20px;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+    width: 300px;
+    max-height: 100vh;
+    overflow-y: auto;
+}
+
+/* Sidebar Heading */
+.sidebar h5 {
+    color: #FFFFFF;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #444;
+    padding-bottom: 8px;
+}
+
+/* Sidebar Navigation Links */
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.sidebar ul li a {
+    color: #CCCCCC;
+    text-decoration: none;
+    font-size: 16px;
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+}
+
+.sidebar ul li a:hover {
+    background-color: #FF5722;
+    color: #FFFFFF;
+}
+
+/* Sidebar Icons */
+.sidebar ul li a .icon {
+    margin-right: 10px;
+    font-size: 18px;
+    color: #FF5722;
+}
+
+/* Sidebar Filters */
+.sidebar .filter-section {
+    margin-top: 30px;
+}
+
+.sidebar .filter-section h6 {
+    color: #FFFFFF;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+}
+
+.sidebar .form-range {
+    width: 100%;
+    margin: 15px 0;
+    appearance: none;
+    height: 8px;
+    background: #444;
+    border-radius: 4px;
+    outline: none;
+    transition: background 0.3s ease-in-out;
+}
+
+.sidebar .form-range::-webkit-slider-thumb {
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.sidebar .form-range::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background-color: #FF5722;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+/* Checkboxes */
+.sidebar .form-check {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.sidebar .form-check-input {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    accent-color: #FF5722;
+    cursor: pointer;
+}
+
+.sidebar .form-check-label {
+    color: #CCCCCC;
+    margin-left: 10px;
+    font-size: 14px;
+}
+
+/* Reset Button */
+.sidebar .btn-reset {
+    background-color: #FF5722;
+    color: #FFFFFF;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    padding: 12px 20px;
+    border-radius: 6px;
+    border: none;
+    margin-top: 20px;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.sidebar .btn-reset:hover {
+    background-color: #E64A19;
+}
+
+
+/* Card */
+.card {
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+.text-truncate-2 {
+    font-size: 16px;
+    font-weight: bold;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: 3em;
+    line-height: 1.5em;
+}
+
+.card-title {
+    color: white;
+    font-weight: 900;
+}
+
+.card-text {
+    color: green;
+    font-weight: 700;
+}
+
+
+/* Pagination */
+.pagination .page-link {
+    color: #FFFFFF;
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+    transition: all 0.3s ease;
+}
+
+.pagination .page-link:hover {
+    background-color: #d849ff;
+    color: #FFFFFF;
+}
+
+.pagination .page-item.disabled .page-link {
+    color: #666666;
+    background-color: #1E1E1E;
+    border: 1px solid #333333;
+}
+
+
+/* Footer */
+.footer-link {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    color: #FF5722;
+    text-decoration: underline;
+}
+
+.footer-icon {
+    color: #FFFFFF;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.footer-icon:hover {
+    color: #FF5722;
+}
+
+footer h5 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+footer p, footer li {
+    font-size: 15px;
+    line-height: 1.6;
+    color: #B3B3B3;
+}
+
+/* Media Queries for Responsive Design */
+
+/* For smaller screens like mobile */
+@media (max-width: 768px) {
+    body {
+        font-size: 14px; /* Smaller font size on smaller screens */
+    }
+
+    /* Header */
+    header {
+        padding: 10px;
+    }
+
+    .nav-link {
+        padding: 0.5rem 0.8rem;
+    }
+
+    /* Sidebar */
+    .sidebar {
+        width: 100%;
+        padding: 15px;
+        max-height: none;
+    }
+
+    .sidebar ul li a {
+        font-size: 14px;
+    }
+
+    .sidebar .btn-reset {
+        font-size: 12px;
+    }
+
+    /* Cards */
+    .card {
+        padding: 10px;
+    }
+
+    .text-truncate-2 {
+        font-size: 14px; /* Adjust text size on small screens */
+    }
+
+    .pagination .page-link {
+        font-size: 12px;
+        padding: 8px;
+    }
+
+    footer p, footer li {
+        font-size: 14px;
+    }
+}
+
+/* For tablet screens */
+@media (max-width: 1024px) {
+    /* Adjust side margins and font sizes */
+    body {
+        font-size: 15px;
+    }
+
+    .sidebar {
+        width: 250px;
+    }
+
+    .sidebar ul li a {
+        font-size: 15px;
+    }
+
+    .sidebar .btn-reset {
+        font-size: 13px;
+    }
+
+    .card {
+        padding: 12px;
+    }
+
+    .pagination .page-link {
+        font-size: 13px;
+    }
+
+    footer p, footer li {
+        font-size: 15px;
+    }
+}
+
+/* For larger screens (desktops) */
+@media (min-width: 1200px) {
+    /* Larger font size for better readability on bigger screens */
+    body {
+        font-size: 16px;
+    }
+
+    .sidebar {
+        width: 300px;
+    }
+
+    .card {
+        padding: 15px;
+    }
+
+    .pagination .page-link {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    footer p, footer li {
+        font-size: 16px;
+    }
+}
