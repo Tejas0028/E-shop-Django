@@ -52,7 +52,7 @@
                             <ul class="dropdown-menu bg-dark ">
                                 <a class="dropdown-item text-white"  style="background-color: black; color: white;"
                                 onmouseover="this.style.backgroundColor='#444'; this.style.color='white';"
-                                onmouseout="this.style.backgroundColor='black'; this.style.color='white';" href="">All product</a>
+                                onmouseout="this.style.backgroundColor='black'; this.style.color='white';" href="{% url 'store' %}">All product</a>
                             {% for category in links %}
                               <li><a class="dropdown-item text-white"  style="background-color: black; color: white;"
                                 onmouseover="this.style.backgroundColor='#444'; this.style.color='white';"
@@ -69,9 +69,9 @@
                 </nav>
 
                 <!-- Centered Search Bar -->
-                <form class="d-flex mx-auto order-1 order-lg-2 mb-2 mb-lg-0" style="width: 100%; max-width: 400px;"
-                    role="search">
-                    <input type="search" class="form-control me-2 text-bg-dark" name="item_name"
+                <form action="{% url 'search' %}" class="d-flex mx-auto order-1 order-lg-2 mb-2 mb-lg-0" style="width: 100%; max-width: 400px;"
+                    role="search" method="Get">
+                    <input type="search" class="form-control me-2 text-bg-dark" name="keyword"
                         placeholder="Search products..." aria-label="Search">
                     <button type="submit" class="btn btn-light">
                         <i class="bi bi-search"></i>
@@ -80,11 +80,11 @@
 
                 <!-- Right Side Links and Icons -->
                 <div class="d-flex align-items-center order-3">
-                    <a href="#" class="text-white me-3 position-relative">
+                    <a href="{% url 'cart' %}" class="text-white me-3 position-relative">
                         <i class="bi bi-cart4 fs-4"></i>
                         <span
-                            class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">10</span>
-                    </a>
+                            class="badge rounded-pill bg-danger position-absolute top-0 start-100 translate-middle">{{cart_count}}</span></a>
+                 
                     <a href="#" class="text-white me-3 page-link">
                         <i class="bi bi-person-circle fs-4"></i> Profile
                     </a>

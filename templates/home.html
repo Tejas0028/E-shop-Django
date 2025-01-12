@@ -40,16 +40,16 @@
                                 </a>
                                 
                                 <div class="row">
-                                    <div class="col-md-6 col-sm-6">
+                                    {% comment %} <div class="col-md-6 col-sm-6">
                                         <div class="d-grid gap-3 col-12 mx-auto mt-3">
-                                            <a class="btn btn-primary text-white " href="">Add to
+                                            <a href="{% url 'add_cart' product.id %}" class="btn btn-primary text-white " href="">Add to
                                                 cart</a>
                                         </div>
-                                    </div>
-                                    <div class="col-md-6 col-sm-6">
+                                    </div> {% endcomment %}
+                                    <div class="col-md-12 col-sm-12">
                                         <div class="d-grid gap-3 col-12 mx-auto mt-3">
-                                            <a class="btn btn-success text-white " href="{{product.get_url}}">View
-                                                Detail</a>
+                                            <a class="btn btn-outline-light" href="{{product.get_url}}"><b>View
+                                                Detail</b></a>
                                         </div>
                                     </div>
 

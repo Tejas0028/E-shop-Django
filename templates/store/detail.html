@@ -34,7 +34,7 @@
 
         .product-image img {
             width: 100%;
-            max-height: 400px;
+            max-height: 500px;
             object-fit: cover;
             border-radius: 8px;
         }
@@ -78,6 +78,42 @@
             background-color: #333;
             color: #fff;
         }
+
+
+        .product-options {
+            margin-top: 20px;
+        }
+    
+        .product-options .form-label {
+            display: block;
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #FF5722; /* Accent color */
+        }
+    
+        .product-options .form-select {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #555;
+            background-color: #333;
+            color: #fff;
+            font-size: 16px;
+            appearance: none; /* Removes default browser styling */
+            cursor: pointer;
+        }
+    
+        .product-options .form-select:hover {
+            background-color: #444;
+        }
+    
+        .product-options .form-select:focus {
+            outline: none;
+            box-shadow: 0 0 5px #FF5722;
+            border-color: #FF5722;
+        }
+
 
         .add-to-cart {
             margin-top: 20px;
@@ -179,25 +215,56 @@
             </div>
 
             <!-- Product Details Section (Right Side) -->
-            <div class="product-info">
-                <h1 class="product-title">{{ single_product.product_name }}</h1>
-                <p class="product-price">$ {{ single_product.price }}</p>
-                <p class="product-description">{{ single_product.description }}</p>
+            <form action ="{% url 'add_cart' single_product.id %}" method="POST">
+                {% csrf_token %}
+                <div class="product-info">
+                    <h1 class="product-title">{{ single_product.product_name }}</h1>
+                    <p class="product-price">$ {{ single_product.price }}</p>
+                    <p class="product-description">{{ single_product.description }}</p>
+                    
+                    {% comment %} <div class="product-quantity">
+                        <label for="quantity" class="form-label">Quantity:</label>
+                        <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
+                    </div> {% endcomment %}
+
+
                 
-                <div class="product-quantity">
-                    <label for="quantity" class="form-label">Quantity:</label>
-                    <input type="number" id="quantity" name="quantity" min="1" value="1" class="quantity-input">
-                </div>
+                    <div class="product-options mt-3">
+                        <!-- Color Dropdown -->
+                        <div class="product-color">
+                            <label for="color" class="form-label">Select Color:</label>
+                            <select id="color" name="color" class="form-select" required>
+                                <option value="" disabled selected>Choose Color</option>
+                                {% for color in single_product.variation_set.colors %}
+                                        <option value="{{color|lower }}">{{color|title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    
+                        <!-- Size Dropdown -->
+                        <div class="product-size mt-3">
+                            <label for="size" class="form-label">Select Size:</label>
+                            <select id="size" name="size" class="form-select" required>
+                                <option value="" disabled selected>Choose Size</option>
+                                {% for size in single_product.variation_set.sizes %}
+                                        <option value="{{size|lower }}">{{size|title}}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
 
-                {% if single_product.stock > 0 %}
-                <button class="add-to-cart">Add to Cart</button>
-                {% else %}
-                <div class="d-grid gap-2 mt-3">
-                <button class="btn btn-success btn-lg disabled" aria-disabled="true" title="This item is currently out of stock.">Out of stock </button>
-                </div>
-                {% endif %}
+                    {% if single_product.stock > 0 %}
+                    <!-- product in stock  -->
+                            <!--product not in cart -->
+                            <button type="submit" class="btn btn-lg add-to-cart mt-5">Add to Cart</button>
+                    {% else %}
+                        <div class="d-grid gap-2 mt-3">
+                            <button class="btn btn-danger btn-lg disabled mt-5" aria-disabled="true" title="This item is currently out of stock.">Out of stock </button>
+                        </div>
+                    {% endif %}
 
-            </div>
+                </div>
+            </form>
         </div>
 
         <!-- Product Ratings Section (Below Product Info and Image) -->

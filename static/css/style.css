@@ -31,19 +31,6 @@ header a:hover {
     border-radius: 50%;
 }
 
-button {
-    background-color: #FF5722;
-    color: #FFFFFF;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-}
-
-button:hover {
-    background-color: #d849ff;
-}
-
 /* Sidebar */
 .sidebar {
     background-color: #1F1F1F;
