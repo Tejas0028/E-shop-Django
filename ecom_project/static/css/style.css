@@ -6,7 +6,7 @@ body {
 }
 
 /* Header */
-header {
+/* header {
     background-color: #1E1E1E;
     border-bottom: 1px solid #333333;
 }
@@ -21,8 +21,6 @@ header a:hover {
 }
 
 
-
-
 .badge {
     font-size: 0.75rem;
     width: 20px;
@@ -31,21 +29,52 @@ header a:hover {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+} */
+
+
+.navbar {
+    background-color: #343a40;
 }
 
-button {
-    background-color: #FF5722;
-    color: #FFFFFF;
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-toggler {
     border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
 }
 
-button:hover {
-    background-color: #d849ff;
+.navbar-toggler:focus {
+    box-shadow: none;
 }
 
+.form-control:focus {
+    box-shadow: none;
+    border-color: #6c757d;
+}
+
+.search-bar {
+    width: 400px;
+}
+
+@media (max-width: 992px) {
+    .search-bar {
+        width: 100%; /* Full width on medium and smaller screens */
+        margin-bottom: 1rem;
+    }
+}
+
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    padding: 0.2rem 0.4rem;
+}
 
 /* Sidebar */
 .sidebar {

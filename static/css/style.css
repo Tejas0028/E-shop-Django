@@ -6,7 +6,7 @@ body {
 }
 
 /* Header */
-header {
+/* header {
     background-color: #1E1E1E;
     border-bottom: 1px solid #333333;
 }
@@ -29,6 +29,51 @@ header a:hover {
     justify-content: center;
     align-items: center;
     border-radius: 50%;
+} */
+
+
+.navbar {
+    background-color: #343a40;
+}
+
+.navbar-nav .nav-link {
+    color: white !important;
+}
+
+.navbar-toggler {
+    border: none;
+}
+
+.navbar-toggler:focus {
+    box-shadow: none;
+}
+
+.form-control:focus {
+    box-shadow: none;
+    border-color: #6c757d;
+}
+
+.search-bar {
+    width: 400px;
+}
+
+@media (max-width: 992px) {
+    .search-bar {
+        width: 100%; /* Full width on medium and smaller screens */
+        margin-bottom: 1rem;
+    }
+}
+
+.cart-badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    background-color: red;
+    color: white;
+    font-size: 0.75rem;
+    border-radius: 50%;
+    padding: 0.2rem 0.4rem;
 }
 
 /* Sidebar */
@@ -168,7 +213,6 @@ header a:hover {
     background-color: #E64A19;
 }
 
-
 /* Card */
 .card {
     background-color: #1E1E1E;
@@ -199,7 +243,6 @@ header a:hover {
     font-weight: 700;
 }
 
-
 /* Pagination */
 .pagination .page-link {
     color: #FFFFFF;
@@ -218,7 +261,6 @@ header a:hover {
     background-color: #1E1E1E;
     border: 1px solid #333333;
 }
-
 
 /* Footer */
 .footer-link {

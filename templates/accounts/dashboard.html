@@ -1,0 +1,232 @@
+{% extends 'base.html' %}
+
+{% block style %}
+/* Sidebar Styling */
+.sidebar {
+  background-color: #1E1E1E;
+  min-height: 80vh;
+  padding: 20px 0;
+}
+
+.sidebar a {
+  color: #CCCCCC;
+  text-decoration: none;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  font-size: 16px;
+  margin: 5px 0;
+  transition: all 0.3s ease;
+}
+
+.sidebar a.active, .sidebar a:hover {
+  background-color: #FF5722;
+  color: #FFFFFF;
+}
+
+.sidebar a i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+
+/* Main Content */
+.content {
+  padding: 20px;
+}
+
+/* Cards */
+.card {
+  background-color: #1E1E1E;
+  border: none;
+  border-radius: 12px;
+  color: #FFFFFF;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(255, 87, 34, 0.3);
+}
+
+.card-title {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+}
+
+.card-title i {
+  margin-right: 8px;
+}
+
+.card-text {
+  font-size: 14px;
+  color: #CCCCCC;
+}
+
+/* Section Visibility */
+.section {
+  display: none;
+}
+
+.section.active {
+  display: block;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 767px) {
+  .sidebar {
+    position: static;
+    width: 100%;
+    min-height: auto;
+    padding: 10px 0;
+  }
+
+  .sidebar a {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .content {
+    margin-top: 10px;
+    padding: 15px;
+  }
+}
+
+{% endblock %}
+
+
+{% block body %}
+
+<div class="container-fluid">
+  {% include 'alerts.html' %}
+    <div class="row mt-4">
+      <!-- Sidebar -->
+      <nav class="col-md-2 col-lg-2 sidebar d-md-block">
+        <h4 class="text-center text-light">User Dashboard</h4>
+        <a href="#dashboard" class="nav-link active" onclick="showSection(event, 'dashboard')">
+          <i class="bi bi-house-door"></i> Dashboard
+        </a>
+        <a href="#orders" class="nav-link" onclick="showSection(event, 'orders')">
+          <i class="bi bi-box-seam"></i> My Orders
+        </a>
+        <a href="#wishlist" class="nav-link" onclick="showSection(event, 'wishlist')">
+          <i class="bi bi-heart"></i> Wishlist
+        </a>
+        <a href="#account" class="nav-link" onclick="showSection(event, 'account')">
+          <i class="bi bi-person-circle"></i> Account Details
+        </a>
+        <a href="#support" class="nav-link" onclick="showSection(event, 'support')">
+          <i class="bi bi-question-circle"></i> Support
+        </a>
+        <a href="{% url 'logout' %}" class="nav-link">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </nav>
+
+      <!-- Content -->
+      <main class="col-md-8 col-lg-10 content">
+
+       
+        <!-- Dashboard Section -->
+        <div id="dashboard" class="section active">
+          <h3>Welcome, [User Name]</h3>
+          <p>Your e-commerce dashboard at a glance:</p>
+          <div class="row">
+            <!-- Orders Card -->
+            <div class="col-md-4">
+              <div class="card p-3 mb-4">
+                <h5 class="card-title">
+                  <i class="bi bi-box-seam"></i> Orders
+                </h5>
+                <p class="card-text">Track your orders and shipping status.</p>
+                <a href="#orders" class="btn btn-primary" onclick="showSection(event, 'orders')">View Orders</a>
+              </div>
+            </div>
+            <!-- Wishlist Card -->
+            <div class="col-md-4">
+              <div class="card p-3 mb-4">
+                <h5 class="card-title">
+                  <i class="bi bi-heart"></i> Wishlist
+                </h5>
+                <p class="card-text">View and manage items saved to your wishlist.</p>
+                <a href="#wishlist" class="btn btn-primary" onclick="showSection(event, 'wishlist')">View Wishlist</a>
+              </div>
+            </div>
+            <!-- Support Card -->
+            <div class="col-md-4">
+              <div class="card p-3 mb-4">
+                <h5 class="card-title">
+                  <i class="bi bi-question-circle"></i> Support
+                </h5>
+                <p class="card-text">Need help? Reach out to our support team.</p>
+                <a href="#support" class="btn btn-primary" onclick="showSection(event, 'support')">Contact Support</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Orders Section -->
+        <div id="orders" class="section">
+          <h3><i class="bi bi-box-seam"></i> My Orders</h3>
+          <div class="card p-3">
+            <h5 class="card-title">Recent Orders</h5>
+            <p class="card-text">Check your recent purchases and their delivery status.</p>
+            <button class="btn btn-primary">Track Order</button>
+          </div>
+        </div>
+
+        <!-- Wishlist Section -->
+        <div id="wishlist" class="section">
+          <h3><i class="bi bi-heart"></i> Wishlist</h3>
+          <div class="card p-3">
+            <h5 class="card-title">Your Wishlist</h5>
+            <p class="card-text">Manage items saved for later.</p>
+            <button class="btn btn-primary">View Wishlist</button>
+          </div>
+        </div>
+
+        <!-- Account Details Section -->
+        <div id="account" class="section">
+          <h3><i class="bi bi-person-circle"></i> Account Details</h3>
+          <div class="card p-3">
+            <h5 class="card-title">Profile Settings</h5>
+            <p class="card-text">Update your personal details and account preferences.</p>
+            <button class="btn btn-primary">Edit Account</button>
+          </div>
+        </div>
+
+        <!-- Support Section -->
+        <div id="support" class="section">
+          <h3><i class="bi bi-question-circle"></i> Support</h3>
+          <div class="card p-3">
+            <h5 class="card-title">Contact Us</h5>
+            <p class="card-text">Our support team is here to assist you.</p>
+            <button class="btn btn-primary">Get Support</button>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+
+    <!-- JavaScript for Section Switching -->
+    <script>
+        function showSection(event, sectionId) {
+          event.preventDefault();
+    
+          // Hide all sections
+          const sections = document.querySelectorAll('.section');
+          sections.forEach(section => section.classList.remove('active'));
+    
+          // Remove active class from all sidebar links
+          const links = document.querySelectorAll('.sidebar .nav-link');
+          links.forEach(link => link.classList.remove('active'));
+    
+          // Show selected section and highlight link
+          document.getElementById(sectionId).classList.add('active');
+          event.currentTarget.classList.add('active');
+        }
+      </script>
+{% endblock %}
