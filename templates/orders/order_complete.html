@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block style %}
+.card {
+    background-color: #1F1F1F;
+    border: 1px solid #333333;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    border-radius: 12px;
+}
+h2, h4 {
+    color: #7ae852;
+}
+.table {
+    color: #FFFFFF;
+    background-color: #1E1E1E;
+}
+.table th, .table td {
+    background-color: #1E1E1E;
+    border-color: #444;
+    padding: 12px;
+    color:#FFFFFF;
+}
+.table thead th {
+    background-color: #333333;
+    color: #7ae852;
+}
+.btn-primary {
+    background-color: #FF5722;
+    border-color: #FF5722;
+}
+.btn-primary:hover {
+    background-color: #d849ff;
+    border-color: #d849ff;
+}
+.btn-secondary {
+    background-color: #1E1E1E;
+    color: #CCCCCC;
+    border: 1px solid #444;
+}
+.btn-secondary:hover {
+    background-color: #333333;
+    color: #FFFFFF;
+}
+.btn-info {
+    background-color: #7ae852;
+    border-color: #7ae852;
+    color: #121212;
+}
+.btn-info:hover {
+    background-color: #5fc942;
+}
+.list-group-item {
+    background-color: #1E1E1E;
+    color: #FFFFFF;
+    border: 1px solid #444;
+}
+p {
+    color:#FFFFFF
+}
+@media (max-width: 768px) {
+    .order-summary, .payment-details, .shipping-details {
+        text-align: center;
+    }
+    .table th, .table td {
+        font-size: 14px;
+        padding: 8px;
+    }
+}
+{% endblock %}
+
+
+{% block body %}
+<div class="container mt-5">
+    <div class="card shadow-lg p-4">
+        <div class="d-flex flex-column flex-md-row align-items-center">
+            {% comment %} <img src="logo.png" alt="Company Logo" class="me-md-3 mb-3 mb-md-0" style="height: 50px;"> {% endcomment %}
+            <i class="bi bi-shop fs-3 me-2 me-md-3 mb-3 mb-md-0 text-white "></i><span class="fw-bold text-white" style="font-size:2rem">E-Shop</span>
+            <h2 class="text-center flex-grow-1"><i class="fa fa-check-circle text-success"></i> Payment Successful! Your Order is Confirmed</h2>
+        </div>
+        <p class="text-center">A confirmation email with your invoice has been sent.</p>
+        
+        <div class="row mt-4">
+            <div class="col-md-6 order-summary">
+                <h4><i class="fa fa-receipt"></i> Order Summary</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Order ID: <strong>#{{ order_number }}</strong></li>
+                    <li class="list-group-item">Order Date: <strong>{{order.created_at}}</strong></li>
+                    <li class="list-group-item">Total Amount: <strong>${{order.order_total}}</strong></li>
+                </ul>
+            </div>
+            <div class="col-md-6 payment-details">
+                <h4><i class="fa fa-credit-card"></i> Payment Details</h4>
+                <ul class="list-group">
+                    <li class="list-group-item">Transaction ID: <strong>{{transId}}</strong></li>
+                    <li class="list-group-item">Payment Method: <strong>{{payment.payment_method}}</strong></li>
+                    <li class="list-group-item text-success"><i class="fa fa-check-circle"></i> Status: <strong>{{payment.status}}</strong></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6 shipping-details">
+                <h4><i class="fa fa-truck"></i> Shipping Details</h4>
+                <p><strong>{{order.full_name}}</strong></p>
+                <p>{{order.full_address}},{{order.city}},{{order.state}}</p>
+                <p><i class="fa fa-phone"></i> {{order.phone}}</p>
+                {% comment %} <p>Estimated Delivery: <strong>February 5, 2025</strong></p> {% endcomment %}
+            </div>
+        </div>
+        
+        <div class="mt-5">
+            <h4><i class="fa fa-file-invoice"></i> Invoice Details</h4>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for item in ordered_product %}
+                        <tr>
+                            <td>{{item.product.product_name}}
+                                {% if item.variation.all %}
+                                {% for i in item.variation.all %}
+                                <small class="" style="color: #B3B3B3;"> | {{ i.variation_category|capfirst }}: {{ i.variation_value }}</small>
+                                {% endfor %}
+                                {% endif %}
+                            </td>
+                            <td>{{item.quantity}}</td>
+                            <td>${{item.product_price}}</td>
+                            <td>${{item.total_price}}</td>
+                        </tr>
+                        {% endfor %}
+                        
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Subtotal:</strong></td>
+                            <td>${{subtotal}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Tax:</strong></td>
+                            <td>${{order.tax}}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>Grand Total:</strong></td>
+                            <td><strong>${{order.order_total}}</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <div class="text-center mt-4">
+            <button class="btn btn-info" onclick="window.print()"><i class="fa fa-print"></i> Print Invoice</button>
+            <a href="#" class="btn btn-primary"><i class="fa fa-map-marker-alt"></i> Track Your Order</a>
+            <a href="/shop" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i> Continue Shopping</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

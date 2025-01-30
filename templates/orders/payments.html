@@ -1,0 +1,243 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+.card {
+    background-color: #1F1F1F;
+    border: 1px solid #333333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+}
+
+.card .card-title {
+    color: #7ae852;  /* Green color for titles for better contrast */
+    font-weight: bold;
+}
+
+.card p, .card ul, .list-group-item {
+    color: #FFFFFF;  /* White color for text for visibility */
+}
+
+.btn-primary {
+    background-color: #FF5722;
+    border-color: #FF5722;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: #d849ff;
+    border-color: #d849ff;
+    transform: scale(1.05);
+}
+
+.btn-paypal {
+    background-color: #FFC439;
+    color: #000;
+    font-weight: bold;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.btn-paypal:hover {
+    transform: scale(1.05);
+}
+
+.form-control {
+    background-color: #1F1F1F;
+    color: #FFFFFF;  /* White text color */
+    border: 1px solid #444;
+    border-radius: 5px;
+}
+
+.form-control::placeholder {
+    color: #B3B3B3;  /* Lighter gray color for placeholders */
+}
+
+.list-group-item {
+    color: #FFFFFF;  /* White text color for list items */
+}
+
+.list-group-item small {
+    color: #CCCCCC;  /* Lighter gray for smaller text */
+}
+
+.order-summary {
+    background-color: #1E1E1E;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #333333;
+}
+{% endblock %}
+
+
+{% block body %}
+
+
+<div class="container my-4">
+    <h4 class="text-center mb-6">Review Your Order and Make Payment</h4>
+    <div class="row">
+        <div class="col-lg-8 mb-4">
+            <div class="card p-4">
+                <h5 class="card-title mb-4">Billing Address</h5>
+                <p><strong>Name :</strong> {{order.full_name}}</p>
+                <p><strong>Address :</strong> {{order.full_address}}</p>
+                <p><strong>City :</strong> {{order.city}}</p>
+                <p><strong>State :</strong> {{order.state}}</p>
+                <p><strong>Country :</strong> {{order.country}}</p>
+                <p><strong>Email :</strong> {{order.email}}</p>
+                <p><strong>Phone :</strong> {{order.phone}}</p>
+                {% if order.order_note %}
+                    <p><strong>Order Note :</strong> {{order.order_note}}</p>
+                {% endif %}
+            </div>
+
+            <div class="card p-4 mt-4">
+                <h5 class="card-title mb-4">Payment Method</h5>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+                        <div>
+                            <img src="/static/images/paypal.png" alt="Visa" class="img-fluid mx-1" style="width: 50px;">
+                            <strong> PayPal</strong> 
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="card p-4 mt-4">
+                <h5 class="card-title mb-4">Review Products</h5>
+                <ul class="list-group list-group-flush">
+                    {% for cart_item in cart_items %}
+                    <li class="list-group-item d-flex justify-content-between align-items-center bg-transparent">
+                        <div class="d-flex align-items-center">
+                            <img src="{{ cart_item.product.images.url }}" alt="{{ item.product.name }}" class="img-fluid me-3" style="width: 80px; height: 80px; object-fit: cover;">
+                            <div>
+                                <strong class="text-white">{{ cart_item.product.product_name }}</strong>
+
+                                {% for item in cart_item.variation.all %}
+                                <small class="d-block"> {{ item.variation_category|capfirst }} : {{ item.variation_value }}</small>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+                        <div class="text-end">
+                            <span>Qty: {{ cart_item.quantity }}</span><br>
+                            <strong class="text-white">$ {{ cart_item.sub_total }}</strong>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+            
+        </div>
+
+        <div class="col-lg-4 col-md-5">
+            <div class="order-summary">
+                <h4 class="mb-4 text-white">Order Summary</h4>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="">Subtotal :</span>
+                    <span class="text-white">$ {{ total }}</span>
+                </div>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="">Tax :</span>
+                    <span class="text-white">$ {{ tax }}</span>
+                </div>
+                <hr>
+                <div class="d-flex justify-content-between mb-3">
+                    <span class="fw-bold text-white">Total:</span>
+                    <span class="fw-bold text-white">${{ grand_total }}</span>
+                </div>
+                <!-- Payment Icons -->
+                <div class="text-center my-3 mt-5">
+                    <img src="/static/images/paypal.png" alt="Visa" class="img-fluid mx-1" style="width: 50px;">
+                </div>
+                <!-- Buttons -->
+                <div class="d-flex flex-column gap-2 mt-4">
+                    <div id="paypal-button-container">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+
+    var amount = "{{grand_total}}";
+    var url = "{% url 'payments' %}"
+    var csrftoken = getCookie('csrftoken');
+    var orderID = "{{order.order_number}}"
+    var payment_method = "PayPal"
+    var redirect_url ="{% url 'order_complete' %}"
+
+
+    // Render the PayPal button into #paypal-button-container
+    paypal.Buttons({
+        style: {
+            color:  'blue',
+            shape:  'rect',
+            label:  'pay',
+            height: 40
+        },
+        // Set up the transaction
+        createOrder: function (data, actions) {
+            return actions.order.create({
+                purchase_units: [{
+                    amount: {
+                        value: amount, // Correct string format for amount
+                    }
+                }]
+            });
+        },
+
+        // Finalize the transaction
+        onApprove: function (data, actions) {
+            return actions.order.capture().then(function (details) {
+                // Handle successful transaction
+                console.log(details); // Log details for debugging
+                sendData()
+                function sendData(){
+                    fetch(url,{
+                        method:"POST",
+                        headers:{
+                            "Content-type": "application/json",
+                            "X-CSRFToken": csrftoken,
+                        },
+                        body: JSON.stringify({
+                            orderID : orderID,
+                            transID : details.id,
+                            payment_method: payment_method,
+                            status: details.status,
+                        })
+                    })
+                    .then((response) => response.json())
+                    .then((data) => {
+                        window.location.href = redirect_url +'?order_number='+data.order_number+'&payment_id='+data.transId;
+                    });
+                }
+                
+            });
+        }
+    }).render('#paypal-button-container');
+</script>
+
+{% endblock %}

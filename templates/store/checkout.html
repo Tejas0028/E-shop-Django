@@ -76,17 +76,17 @@
         <div class="col-lg-8">
             <div class="card p-4">
                 <h5 class="card-title">Billing Details</h5>
-                <form class="mt-4" action="" method="POST">
+                <form class="mt-4" action="{% url 'place_order' %}" method="POST">
                     {% csrf_token %}
                     <!-- Row 1: First Name & Last Name -->
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="firstName" class="form-label">First Name</label>
-                            <input type="text" class="form-control" id="firstName" placeholder="Enter your first name" required> 
+                            <input type="text" class="form-control" id="firstName" name="first_name" placeholder="Enter your first name" required> 
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="lastName" class="form-label">Last Name</label>
-                            <input type="text" class="form-control" id="lastName" placeholder="Enter your last name" required>
+                            <input type="text" class="form-control" id="lastName" name="last_name" placeholder="Enter your last name" required>
                         </div>
                     </div>
                 
@@ -94,11 +94,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="email" class="form-label">Email Address</label>
-                            <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                            <input type="email" class="form-control" id="email" name="email" placeholder="Enter your email" required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="phone" class="form-label">Phone Number</label>
-                            <input type="text" class="form-control" id="phone" placeholder="Enter your phone number" required>
+                            <input type="text" class="form-control" id="phone" name="phone" placeholder="Enter your phone number" required>
                         </div>
                     </div>
                 
@@ -106,11 +106,11 @@
                     <div class="row">
                         <div class="col-md-6 mb-3">
                             <label for="addressLine1" class="form-label">Address Line 1</label>
-                            <input type="text" class="form-control" id="addressLine1" placeholder="Street address, P.O. box, etc." required>
+                            <input type="text" class="form-control" id="addressLine1" name="address_line_1" placeholder="Street address, P.O. box, etc." required>
                         </div>
                         <div class="col-md-6 mb-3">
                             <label for="addressLine2" class="form-label">Address Line 2</label>
-                            <input type="text" class="form-control" id="addressLine2" placeholder="Apartment, suite, unit, etc. (optional)">
+                            <input type="text" class="form-control" id="addressLine2" name="address_line_2" placeholder="Apartment, suite, unit, etc. (optional)">
                         </div>
                     </div>
                 
@@ -118,15 +118,15 @@
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <label for="city" class="form-label">City</label>
-                            <input type="text" class="form-control" id="city" placeholder="Enter your city" required>
+                            <input type="text" class="form-control" id="city" name="city" placeholder="Enter your city" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="state" class="form-label">State</label>
-                            <input type="text" class="form-control" id="state" placeholder="Enter your state" required>
+                            <input type="text" class="form-control" id="state" name="state" placeholder="Enter your state" required>
                         </div>
                         <div class="col-md-4 mb-3">
                             <label for="country" class="form-label">Country</label>
-                            <input type="country" class="form-control" id="country" placeholder="Enter your country" required>
+                            <input type="country" class="form-control" id="country" name="country" placeholder="Enter your country" required>
                             
                         </div>
                     </div>
@@ -134,7 +134,7 @@
                     <!-- Row 5: Order Note -->
                     <div class="mb-3">
                         <label for="orderNote" class="form-label">Order Note</label>
-                        <textarea class="form-control" id="orderNote" rows="3" placeholder="Add any special instructions or notes for your order..."></textarea>
+                        <textarea class="form-control" id="orderNote" name="order_note" rows="3" placeholder="Add any special instructions or notes for your order..."></textarea>
                     </div>
                 
 
