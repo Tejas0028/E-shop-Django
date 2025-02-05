@@ -73,18 +73,13 @@ p {
 {% block body %}
 <div class="container mt-5">
     <div class="card shadow-lg p-4">
-        <div class="d-flex flex-column flex-md-row align-items-center">
-            {% comment %} <img src="logo.png" alt="Company Logo" class="me-md-3 mb-3 mb-md-0" style="height: 50px;"> {% endcomment %}
-            <i class="bi bi-shop fs-3 me-2 me-md-3 mb-3 mb-md-0 text-white "></i><span class="fw-bold text-white" style="font-size:2rem">E-Shop</span>
-            <h2 class="text-center flex-grow-1"><i class="fa fa-check-circle text-success"></i> Payment Successful! Your Order is Confirmed</h2>
-        </div>
-        <p class="text-center">A confirmation email with your invoice has been sent.</p>
+        
         
         <div class="row mt-4">
             <div class="col-md-6 order-summary">
                 <h4><i class="fas fa-receipt"></i> Order Summary</h4>
                 <ul class="list-group">
-                    <li class="list-group-item">Order ID: <strong>#{{ order_number }}</strong></li>
+                    <li class="list-group-item">Order ID: <strong>#{{ order.order_number }}</strong></li>
                     <li class="list-group-item">Order Date: <strong>{{order.created_at}}</strong></li>
                     <li class="list-group-item">Total Amount: <strong>${{order.order_total}}</strong></li>
                 </ul>
@@ -92,9 +87,9 @@ p {
             <div class="col-md-6 payment-details">
                 <h4><i class="fa fa-credit-card"></i> Payment Details</h4>
                 <ul class="list-group">
-                    <li class="list-group-item">Transaction ID: <strong>{{transId}}</strong></li>
-                    <li class="list-group-item">Payment Method: <strong>{{payment.payment_method}}</strong></li>
-                    <li class="list-group-item text-success"><i class="fa fa-check-circle"></i> Status: <strong>{{payment.status}}</strong></li>
+                    <li class="list-group-item">Transaction ID: <strong>{{order.payment.payment_id}}</strong></li>
+                    <li class="list-group-item">Payment Method: <strong>{{order.payment.payment_method}}</strong></li>
+                    <li class="list-group-item text-success"><i class="fa fa-check-circle"></i> Status: <strong>{{order.payment.status}}</strong></li>
                 </ul>
             </div>
         </div>
@@ -123,7 +118,7 @@ p {
                     </thead>
                     <tbody>
 
-                        {% for item in ordered_product %}
+                        {% for item in order_details %}
                         <tr>
                             <td>{{item.product.product_name}}
                                 {% if item.variation.all %}
@@ -155,11 +150,11 @@ p {
             </div>
         </div>
         
-        <div class="text-center mt-4">
+        {% comment %} <div class="text-center mt-4">
             <button class="btn btn-info" onclick="window.print()"><i class="fa fa-print"></i> Print Invoice</button>
             <a href="#" class="btn btn-primary"><i class="fa fa-map-marker-alt"></i> Track Your Order</a>
             <a href="/shop" class="btn btn-secondary"><i class="fa fa-shopping-cart"></i> Continue Shopping</a>
-        </div>
+        </div> {% endcomment %}
     </div>
 </div>
 {% endblock %}

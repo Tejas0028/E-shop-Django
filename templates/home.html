@@ -1,6 +1,9 @@
 {% extends 'base.html'%}
 
 {% block style %}
+.rating-star i{
+    color:#ffb503 !important;
+    }
 {% endblock %}
 
 {% block body %}
@@ -39,13 +42,23 @@
                                     </div>
                                 </a>
                                 
+                                <div class="rating-star">
+                                    <span>
+                                        <i class="fa fa-star{% if product.averageReview < 0.5 %}-o{% elif product.averageReview >= 0.5 and product.averageReview < 1 %}-half-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 1.5 %}-o{% elif product.averageReview >= 1.5 and product.averageReview < 2 %}-half-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 2.5 %}-o{% elif product.averageReview >= 2.5 and product.averageReview < 3 %}-half-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 3.5 %}-o{% elif product.averageReview >= 3.5 and product.averageReview < 4 %}-half-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                        <i class="fa fa-star{% if product.averageReview < 4.5 %}-o{% elif product.averageReview >= 4.5 and product.averageReview < 5 %}-half-o {% endif %}"
+                                            aria-hidden="true"></i>
+                                    </span>
+                                </div>
+
                                 <div class="row">
-                                    {% comment %} <div class="col-md-6 col-sm-6">
-                                        <div class="d-grid gap-3 col-12 mx-auto mt-3">
-                                            <a href="{% url 'add_cart' product.id %}" class="btn btn-primary text-white " href="">Add to
-                                                cart</a>
-                                        </div>
-                                    </div> {% endcomment %}
+                                
                                     <div class="col-md-12 col-sm-12">
                                         <div class="d-grid gap-3 col-12 mx-auto mt-3">
                                             <a class="btn btn-outline-light" href="{{product.get_url}}"><b>View

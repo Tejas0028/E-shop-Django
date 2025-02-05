@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block style %}
+
+/* Sidebar Styling */
+.sidebar {
+    height: 80vh;
+    background: #1E1E1E;
+    padding: 15px;
+    transition: all 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left:15px;
+}
+
+.sidebar a {
+    color: white;
+    text-decoration: none;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    border-radius: 5px;
+    transition: 0.3s;
+    width: 100%;
+    {% comment %} justify-content: center; {% endcomment %}
+}
+
+.sidebar a:hover {
+    background: #495057;
+}
+
+.sidebar a.active {
+    background: #495057; /* Solid orange for active tab */
+    border-radius: 5px;
+}
+
+.sidebar i {
+    font-size: 1.5rem;
+}
+
+/* Add space between sidebar and main content */
+.main-wrapper {
+    display: flex;
+    gap: 15px;  /* Space between sidebar and content */
+    width: 99%;
+}
+
+
+/* Hide sidebar text on small screens */
+@media (max-width: 768px) {
+    .sidebar a span {
+        display: none;
+    }
+
+    .sidebar {
+        width: 80px;
+        padding: 10px;
+    }
+
+    .main-wrapper {
+        gap: 10px; /* Smaller gap on mobile */
+    }
+}
+
+/* Main Content */
+.content {
+    padding: 15px;
+    height: 80vh;
+    background: #1E1E1E;
+    flex-grow: 1;
+    border-radius: 10px; /* Slight curve for a polished look */
+}
+
+/* Responsive Cards */
+.card {
+    border: none;
+    border-radius: 10px;
+    padding: 20px;
+}
+
+.container {
+    max-width: 900px;
+    background: #1E1E1E;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.form-control {
+    background: #333;
+    color: #ffffff;
+    border: 1px solid #444;
+}
+.form-control:focus {
+    background: #444;
+    color: #ffffff;
+    border-color: #FF5722;
+    box-shadow: none;
+}
+.btn-custom {
+    background: #FF5722;
+    color: white;
+    transition: 0.3s;
+}
+.btn-custom:hover {
+    background: #d849ff;
+}
+
+{% endblock %}
+
+
+{% block body %}
+
+
+<div class="main-wrapper mt-5">
+
+
+{% include 'accounts/sidebar.html' %}
+    <!-- Main Content -->
+    <main class="content col-sm-2 col-md-8 col-lg-8">
+        {% include 'alerts.html' %}
+        <h2>Edit your profile</h2>
+        
+        <!-- Responsive Cards -->
+        <div class="row  mt-4">
+            <div class="col">
+                <div class="card bg-dark text-white">
+                    <div class="card-body">
+                        <div class="mt-0 mb-3 text-right">
+                            <img src="{{userProfile.profile_picture.url}}" alt="Profile Picture" width="70px" style="border-radius:50%;">
+                        </div>
+                        <form action="{% url 'edit_profile' %}" method="POST" enctype="multipart/form-data">
+                            {% csrf_token %}
+        
+                            <!-- Row 1: Full Name, Email, Phone -->
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="first_name" class="form-label">First Name</label>
+                                    {{ user_form.first_name }}
+                                </div>
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="last_name" class="form-label">Last Name</label>
+                                    {{ user_form.last_name }}
+                                </div>
+                                
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="phone" class="form-label">Phone Number</label>
+                                    {{ user_form.phone_number }}
+                                </div>
+                            </div>
+                    
+                            <!-- Row 2: Address, City, ZIP Code -->
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="address_line_1" class="form-label">Address Line 1</label>
+                                    {{profile_form.address_line_1}}
+                                </div>
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="address_line_2" class="form-label">Address Line 2</label>
+                                    {{ profile_form.address_line_2}}
+                                </div>
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="" class="form-label">Profile Picture</label>
+                                    {{ profile_form.profile_picture }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="city" class="form-label">City</label>
+                                    {{profile_form.city}}
+                                </div>
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="state" class="form-label">State</label>
+                                    {{profile_form.state}}
+                                </div>
+                                
+                                <div class="col-md-4 col-sm-4 mb-3">
+                                    <label for="country" class="form-label">Country</label>
+                                    {{profile_form.country}}
+                                </div>
+                            </div>
+                    
+                            <hr class="text-white">
+                    
+                            <!-- Row 3: Password, Confirm Password, Empty Space -->
+                            <div class="row">
+                                {% comment %} <div class="col-md-4 mb-3">
+                                    <label for="password" class="form-label">New Password</label>
+                                    <input type="password" class="form-control" id="password" name="password" placeholder="Enter new password">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                                    <input type="password" class="form-control" id="confirmPassword" name="confirm_password" placeholder="Confirm new password">
+                                </div> {% endcomment %}
+                                <div class="col-md-4 mb-3 d-flex align-items-end">
+                                    <button type="submit" class="btn btn-custom w-100">Save Changes</button>
+                                </div>
+                            </div>
+                    
+                        </form>
+                    </div>  
+                </div>
+            </div>
+           
+        </div>
+    </main>
+</div>
+
+
+{% endblock %}
